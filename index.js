@@ -61,8 +61,8 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     let intentMap = new Map();
     intentMap.set('Default Welcome Intent', welcome);
     intentMap.set('Default Fallback Intent', fallback);
-    intentMap.set('event.search', eventSearchHandler);
-    intentMap.set('event.search.implicit', eventSearchImplicitHandler);
-    intentMap.set('event.tickets.book', eventTicketsBookHandler);
+    intentMap.set('events.search', eventSearchHandler);
+    intentMap.set('events.search.implicit', eventSearchImplicitHandler);
+    intentMap.set('events.tickets.book', eventTicketsBookHandler);
     agent.handleRequest(intentMap);
 });
