@@ -45,15 +45,15 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     // }
     // // See https://github.com/dialogflow/dialogflow-fulfillment-nodejs/tree/master/samples/actions-on-google
     // // for a complete Dialogflow fulfillment library Actions on Google client library v2 integration sample
-    export function eventSearchHandler(agent) {
+    function eventSearchHandler(agent) {
         agent.add(`not complete`);
     }
 
-    export function eventSearchImplicitHandler(agent) {
+    function eventSearchImplicitHandler(agent) {
         agent.add(`not complete`);
     }
 
-    export function eventTicketsBookHandler(agent) {
+    function eventTicketsBookHandler(agent) {
         agent.add(`not complete`);
     }
 
