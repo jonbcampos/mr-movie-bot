@@ -2,6 +2,8 @@ const functions = require('firebase-functions');
 const { WebhookClient, Card, Suggestion } = require('dialogflow-fulfillment');
 const {eventSearchHandler, eventSearchImplicitHandler, eventTicketsBookHandler} = require('functions');
 
+process.env.DEBUG = 'mr-movie-bot:debug'; // enables lib debugging statements
+
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
     const agent = new WebhookClient({ request, response });
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
