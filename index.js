@@ -1,6 +1,5 @@
 const functions = require('firebase-functions');
 const { WebhookClient, Card, Suggestion } = require('dialogflow-fulfillment');
-const {eventSearchHandler, eventSearchImplicitHandler, eventTicketsBookHandler} = require('functions');
 
 process.env.DEBUG = 'mr-movie-bot:debug'; // enables lib debugging statements
 
@@ -46,6 +45,17 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     // }
     // // See https://github.com/dialogflow/dialogflow-fulfillment-nodejs/tree/master/samples/actions-on-google
     // // for a complete Dialogflow fulfillment library Actions on Google client library v2 integration sample
+    export function eventSearchHandler(agent) {
+        agent.add(`not complete`);
+    }
+
+    export function eventSearchImplicitHandler(agent) {
+        agent.add(`not complete`);
+    }
+
+    export function eventTicketsBookHandler(agent) {
+        agent.add(`not complete`);
+    }
 
     // Run the proper function handler based on the matched Dialogflow intent name
     let intentMap = new Map();
