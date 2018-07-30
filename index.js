@@ -45,27 +45,23 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     // }
     // // See https://github.com/dialogflow/dialogflow-fulfillment-nodejs/tree/master/samples/actions-on-google
     // // for a complete Dialogflow fulfillment library Actions on Google client library v2 integration sample
-    const parameters = request.body.result.parameters;
-    const contexts = request.body.result.contexts;
+    const parameters = request.body.queryResult.parameters;
 
     function eventSearchHandler(agent) {
         console.debug('start eventSearchHandler');
         console.debug(`params: ${JSON.stringify(parameters)}`);
-        console.debug(`contexts: ${JSON.stringify(contexts)}`);
         agent.add(`not complete`);
     }
 
     function eventSearchImplicitHandler(agent) {
         console.debug('start eventSearchImplicitHandler');
         console.debug(`params: ${JSON.stringify(parameters)}`);
-        console.debug(`contexts: ${JSON.stringify(contexts)}`);
         agent.add(`not complete`);
     }
 
     function eventTicketsBookHandler(agent) {
         console.debug('start eventTicketsBookHandler');
         console.debug(`params: ${JSON.stringify(parameters)}`);
-        console.debug(`contexts: ${JSON.stringify(contexts)}`);
         agent.add(`not complete`);
     }
 
