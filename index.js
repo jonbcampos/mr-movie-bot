@@ -48,20 +48,20 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     const parameters = request.body.queryResult.parameters;
 
     function eventSearchHandler(agent) {
-        console.debug('start eventSearchHandler');
-        console.debug(`params: ${JSON.stringify(parameters)}`);
+        console.log('start eventSearchHandler');
+        console.log(`params: ${JSON.stringify(parameters)}`);
         agent.add(`not complete`);
     }
 
     function eventSearchImplicitHandler(agent) {
-        console.debug('start eventSearchImplicitHandler');
-        console.debug(`params: ${JSON.stringify(parameters)}`);
+        console.log('start eventSearchImplicitHandler');
+        console.log(`params: ${JSON.stringify(parameters)}`);
         agent.add(`not complete`);
     }
 
     function eventTicketsBookHandler(agent) {
-        console.debug('start eventTicketsBookHandler');
-        console.debug(`params: ${JSON.stringify(parameters)}`);
+        console.log('start eventTicketsBookHandler');
+        console.log(`params: ${JSON.stringify(parameters)}`);
         agent.add(`not complete`);
     }
 
