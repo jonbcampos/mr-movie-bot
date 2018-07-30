@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "run": "node ./bin/www",
     "start": "firebase serve --only functions:dialogflowFirebaseFulfillment",
     "deploy": "firebase deploy --only functions:dialogflowFirebaseFulfillment"
   },
