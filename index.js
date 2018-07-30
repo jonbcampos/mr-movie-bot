@@ -49,7 +49,18 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
     function eventSearchHandler(agent) {
         console.log('start eventSearchHandler');
-        console.log(`params: ${JSON.stringify(parameters)}`);
+        //console.log(`params: ${JSON.stringify(parameters)}`);
+        const dateTime = new Date(parameters['data-time']);
+        const location = parameters['location'];
+        const city = location['city'];
+        const state = location['admin-area'];
+        const amount = parameters['amount'];
+        const title = parameters['event-title'];
+        const sort = parameters['sort'];
+        const genre = parameters['music-genre'];
+        const actor = parameters['actor'];
+        console.log(process.env.API_KEY);
+
         agent.add(`not complete`);
     }
 
