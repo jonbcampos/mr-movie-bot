@@ -1,5 +1,9 @@
 const functions = require('firebase-functions');
 const { WebhookClient, Card, Suggestion } = require('dialogflow-fulfillment');
+const crypto = require('crypto');
+const http = require('http');
+const baseUri = 'http://api.fandango.com';
+const apiVersion = '1';
 
 process.env.DEBUG = 'mr-movie-bot:debug'; // enables lib debugging statements
 
@@ -47,9 +51,30 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     // // for a complete Dialogflow fulfillment library Actions on Google client library v2 integration sample
     const parameters = request.body.queryResult.parameters;
 
+    String.prototype.format = String.prototype.f = function () {
+        let s = this;
+        let i = arguments.length;
+
+        while (i--) {
+            s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
+        }
+        return s;
+    };
+
+    function sha256Encode(stringToEncode) {
+        return crypto.createHash('sha256').update(stringToEncode).digest('hex');
+    }
+
+    function buildAuthorizationParameters(apiKey, sharedSecret) {
+        const seconds = Math.floor(new Date() / 1000);
+        const paramsToEncode = apiKey + sharedSecret + seconds;
+        const encodedParams = sha256Encode(paramsToEncode);
+        return 'apikey={0}&sig={1}'.format(apiKey, encodedParams);
+    }
+
     function eventSearchHandler(agent) {
         console.log('start eventSearchHandler');
-        //console.log(`params: ${JSON.stringify(parameters)}`);
+        console.log(`params: ${JSON.stringify(parameters)}`);
         const dateTime = new Date(parameters['data-time']);
         const location = parameters['location'];
         const city = location['city'];
@@ -59,9 +84,25 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
         const sort = parameters['sort'];
         const genre = parameters['music-genre'];
         const actor = parameters['actor'];
-        console.log(process.env.API_KEY);
 
-        agent.add(`not complete`);
+        const authorizationParameters = buildAuthorizationParameters(
+            process.env.API_KEY,
+            process.env.API_SECRET
+        );
+        const requestUri = '{0}/v{1}/?{2}&{3}'.format(
+            baseUri, apiVersion, parameters, authorizationParameters
+        );
+
+        http.get(requestUri, function(apiRes) {
+            let response = '';
+            apiRes.on('data', function(data) {
+                response += data;
+            });
+
+            apiRes.on('end', function() {
+                agent.add(`not complete`);
+            });
+        });
     }
 
     function eventSearchImplicitHandler(agent) {
